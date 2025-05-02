@@ -1,6 +1,5 @@
-
-const API_KEY = "$2a$10$8GhvHB1.ibOIHWF0qv83ieHuRLegKmpT9W4wkThwLnjYeNbZo8fvG";
-const BIN_ID = "65eb202d9d312622a9ebfbaf";
+const API_KEY = "$2a$10$1u7a.aqhIEmwKibMxYtgmee95UOSlfD/RKZJbDOQOqzeIVLXSFj12";
+const BIN_ID = "681522ff8960c979a5921bc6";
 const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
 async function hasSpunToday(username) {
@@ -32,7 +31,6 @@ async function saveSpin(username, reward) {
       reward,
       date: new Date().toISOString().slice(0, 10)
     }];
-
     await fetch(BIN_URL, {
       method: "PUT",
       headers: {
@@ -46,6 +44,7 @@ async function saveSpin(username, reward) {
   }
 }
 
+// Cấu hình vòng quay
 const prizes = ["Xe SH Mode", "8888k", "888k", "88k", "188k", "388k", "58k", "38k", "18k"];
 const weights = [0, 0, 0, 5, 1, 1, 9, 15, 70];
 
@@ -58,7 +57,6 @@ const numSegments = prizes.length;
 const segAngle = 2 * Math.PI / numSegments;
 const offset = -segAngle / 2;
 const colors = ["#e63946", "#2a9d8f", "#e9c46a", "#f4a261", "#264653", "#d62828", "#f77f00", "#003049", "#6a4c93"];
-
 for (let i = 0; i < numSegments; i++) {
   const start = offset + i * segAngle;
   const end = start + segAngle;
@@ -69,10 +67,12 @@ for (let i = 0; i < numSegments; i++) {
   ctx.fillStyle = colors[i];
   ctx.fill();
 }
+
 ctx.fillStyle = "#fff";
 ctx.font = "bold 14px sans-serif";
 ctx.textAlign = "center";
 ctx.textBaseline = "middle";
+
 for (let i = 0; i < numSegments; i++) {
   const angle = offset + (i + 0.5) * segAngle;
   const x = center + Math.cos(angle) * radius * 0.6;
@@ -92,7 +92,6 @@ function getRandomPrizeIndex() {
   }
   return weights.length - 1;
 }
-
 document.getElementById("spin-btn").addEventListener("click", async () => {
   if (isSpinning) return;
 
@@ -124,9 +123,10 @@ document.getElementById("spin-btn").addEventListener("click", async () => {
     if (count === 0) {
       clearInterval(countdownInterval);
       countdownEl.style.display = "none";
+
       const prizeIndex = getRandomPrizeIndex();
       const turns = 3 + Math.floor(Math.random() * 3);
-      const degPerSegment = 360 / numSegments;
+      const degPerSegment = 360 / prizes.length;
       const rotateTo = 360 * turns + (360 - prizeIndex * degPerSegment - degPerSegment / 2);
       currentRotation += rotateTo;
       canvas.style.transition = "transform 4s ease-out";
