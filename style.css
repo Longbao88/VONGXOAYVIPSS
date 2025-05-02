@@ -1,0 +1,161 @@
+
+body {
+  background: radial-gradient(circle at center, #2b003a, #000000);
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+.container {
+  max-width: 700px;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+  padding: 30px;
+}
+h1 {
+  font-size: 36px;
+  color: gold;
+  text-shadow: 0 0 10px red, 0 0 20px gold;
+}
+.controls input {
+  padding: 12px;
+  font-size: 18px;
+  width: 60%;
+  border-radius: 8px;
+  border: 2px solid #ffc107;
+  background: #1c1c1c;
+  color: #fff;
+}
+.controls button {
+  padding: 12px 24px;
+  font-size: 18px;
+  margin-left: 10px;
+  background: linear-gradient(145deg, #ff3d00, #ff9800);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 152, 0, 0.7);
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+.controls button:hover {
+  background: linear-gradient(145deg, #ff6f00, #ff5722);
+  box-shadow: 0 0 20px rgba(255, 87, 34, 0.9);
+}
+#message {
+  margin-top: 25px;
+  font-size: 20px;
+  font-weight: bold;
+  min-height: 30px;
+}
+.dragons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.dragon {
+  height: 400px;
+  filter: drop-shadow(0 0 15px red);
+}
+.wheel-wrapper {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+.pointer {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 40px solid gold;
+  z-index: 3;
+}
+.logo-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  z-index: 2;
+}
+.promo-banner {
+  margin-top: 20px;
+  font-size: 18px;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid gold;
+  color: #ffd700;
+}
+.promo-banner a {
+  color: #ff9800;
+  text-decoration: underline;
+  font-weight: bold;
+}
+.promo-banner a:hover {
+  color: #fff;
+}
+
+.group-banner {
+  margin-top: 15px;
+  padding: 12px;
+  background: linear-gradient(to right, #000, #ffcc00, #000);
+  color: #000;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
+  animation: glow 1.5s infinite ease-in-out alternate;
+}
+.group-banner a {
+  color: #ff0000;
+  text-decoration: none;
+}
+.group-banner a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px gold;
+  }
+  to {
+    box-shadow: 0 0 20px red;
+  }
+}
+
+.logo-center {
+  border-radius: 50%;
+  border: 4px solid gold;
+  box-shadow: 0 0 15px gold;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(600px) rotate(360deg); opacity: 0; }
+}
+.coin {
+  position: fixed;
+  top: -100px;
+  width: 30px;
+  height: 30px;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Gold_coin_icon.png/48px-Gold_coin_icon.png') no-repeat center center;
+  background-size: contain;
+  animation: fall 2s linear infinite;
+  z-index: 9999;
+}
+#countdown {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ffd700;
+  margin-top: 20px;
+  display: none;
+}
