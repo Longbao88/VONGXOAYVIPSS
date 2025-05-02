@@ -101,7 +101,7 @@ document.getElementById("spin-btn").addEventListener("click", async () => {
         msg.textContent = "Chúc mừng " + username + "! Bạn nhận được " + prizes[prizeIndex] + "!";
         msg.style.color = "#ffd700";
 
-        fetch("https://script.google.com/macros/s/AKfycbw2WWW5lWYuQCnQ4xjpzVDKcL1pYUnNONrNjK6gUirdBc8FLYqHFvBXssHnpnVQzul8IQ/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbxnz1dzON8KQBqTlmOc5Sk-mfjo-MKFw9hkcqqbzK4zyo8jY-LbZYzIinkkNM7HSla51g/exec", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
