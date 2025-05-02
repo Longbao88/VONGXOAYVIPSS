@@ -1,51 +1,4 @@
 
-const API_KEY = "$2a$10$8GhvHB1.ibOIHWF0qv83ieHuRLegKmpT9W4wkThwLnjYeNbZo8fvG";
-const BIN_ID = "65eb202d9d312622a9ebfbaf";
-const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
-
-async function hasSpunToday(username) {
-  const today = new Date().toISOString().slice(0, 10);
-  try {
-    const res = await fetch(`${BIN_URL}/latest`, {
-      headers: {
-        "X-Master-Key": API_KEY
-      }
-    });
-    const data = await res.json();
-    return data.record.some(entry => entry.username === username && entry.date === today);
-  } catch (err) {
-    console.error("Lỗi kiểm tra lượt quay:", err);
-    return false;
-  }
-}
-
-async function saveSpin(username, reward) {
-  try {
-    const res = await fetch(`${BIN_URL}/latest`, {
-      headers: {
-        "X-Master-Key": API_KEY
-      }
-    });
-    const data = await res.json();
-    const updated = [...data.record, {
-      username,
-      reward,
-      date: new Date().toISOString().slice(0, 10)
-    }];
-
-    await fetch(BIN_URL, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Master-Key": API_KEY
-      },
-      body: JSON.stringify(updated)
-    });
-  } catch (err) {
-    console.error("Lỗi khi ghi JSONBin:", err);
-  }
-}
-
 const prizes = ["Xe SH Mode", "8888k", "888k", "88k", "188k", "388k", "58k", "38k", "18k"];
 const weights = [0, 0, 0, 5, 1, 1, 9, 15, 70];
 
@@ -106,15 +59,15 @@ document.getElementById("spin-btn").addEventListener("click", async () => {
     return;
   }
 
-  if (await hasSpunToday(username)) {
-    msg.textContent = "⚠️ Tài khoản này đã quay hôm nay!";
-    msg.style.color = "red";
-    return;
-  }
+  // Kiểm tra tài khoản đã quay chưa
+  
+  // Đã loại bỏ kiểm tra tài khoản trước khi quay
 
+  // Phát nhạc
   const sound = document.getElementById("spin-sound");
   if (sound) sound.play();
 
+  // Bắt đầu đếm ngược
   const countdownEl = document.getElementById("countdown");
   countdownEl.style.display = "block";
   let count = 3;
@@ -133,6 +86,7 @@ document.getElementById("spin-btn").addEventListener("click", async () => {
       canvas.style.transform = "rotate(" + currentRotation + "deg)";
       isSpinning = true;
 
+      // tạo xu
       for (let i = 0; i < 20; i++) {
         const coin = document.createElement("div");
         coin.className = "coin";
@@ -144,10 +98,19 @@ document.getElementById("spin-btn").addEventListener("click", async () => {
 
       canvas.addEventListener("transitionend", () => {
         isSpinning = false;
-        msg.textContent = "🎉 Chúc mừng " + username + "! Bạn nhận được " + prizes[prizeIndex] + "!";
+        msg.textContent = "Chúc mừng " + username + "! Bạn nhận được " + prizes[prizeIndex] + "!";
         msg.style.color = "#ffd700";
 
-        saveSpin(username, prizes[prizeIndex]);
+        fetch("https://script.google.com/macros/s/AKfycbw2WWW5lWYuQCnQ4xjpzVDKcL1pYUnNONrNjK6gUirdBc8FLYqHFvBXssHnpnVQzul8IQ/exec", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            username: username,
+            reward: prizes[prizeIndex]
+          })
+        });
       }, { once: true });
     } else {
       countdownEl.textContent = count;
